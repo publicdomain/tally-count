@@ -73,15 +73,37 @@ namespace TallyCount
             }
 
             // Add item
-            this.itemListView.Items.Add(new ListViewItem(new string[] { this.itemTextBox.Text, "0" }));
+            this.itemListView.Items.Add(new ListViewItem(new string[] { this.itemTextBox.Text, "3" }));
 
             // Clear text box
             this.itemTextBox.Clear();
+
+            // Update status label
+            this.UpdateStatus();
 
         exitFocusLabel:
 
             // Focus item text box
             this.ActiveControl = this.itemTextBox;
+        }
+
+        /// <summary>
+        /// Updates the status text.
+        /// </summary>
+        private void UpdateStatus()
+        {
+            // Total value
+            int total = 0;
+
+            // Iterate list
+            foreach (ListViewItem item in this.itemListView.Items)
+            {
+                // Increment total
+                total += int.Parse(item.SubItems[1].Text);
+            }
+
+            // Set status text
+            this.toolStripStatusLabel.Text = $"Items: {this.itemListView.Items.Count} / Total: {total}";
         }
 
         /// <summary>
