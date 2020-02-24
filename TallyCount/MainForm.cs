@@ -151,6 +151,15 @@ namespace TallyCount
                 // Switch the action
                 switch (action)
                 {
+                    // Handle zeroing all
+                    case "zero":
+
+                        // Zero list item
+                        this.itemListView.Items[i].SubItems[1] = new ListViewItem.ListViewSubItem(this.itemListView.Items[i], "0");
+
+                        // Halt flow
+                        break;
+
                     // Handle removal
                     case "remove":
 
@@ -223,7 +232,17 @@ namespace TallyCount
         /// <param name="e">Event arguments.</param>
         private void OnZeroAllButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Zero all items
+            this.ItemListAction("zero");
+
+            // Update status label
+            this.UpdateStatus();
+
+            // Clear text box
+            this.itemTextBox.Clear();
+
+            // Focus text box
+            this.ActiveControl = this.itemTextBox;
         }
 
         /// <summary>
