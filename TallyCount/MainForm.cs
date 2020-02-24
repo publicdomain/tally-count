@@ -212,7 +212,29 @@ namespace TallyCount
         /// <param name="e">Event arguments.</param>
         private void OnDeleteButtonClick(object sender, EventArgs e)
         {
-            // TODO Add code
+            // Check for a selected item
+            if (this.itemListView.SelectedItems.Count == 0)
+            {
+                // Advise user
+                MessageBox.Show($"Please select an item to delete!", "No target", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Halt flow
+                goto exitFocusLabel;
+            }
+
+            // Remove selected item
+            this.itemListView.SelectedItems[0].Remove();
+
+            // Update status label
+            this.UpdateStatus();
+
+            // Clear text box
+            this.itemTextBox.Clear();
+
+        exitFocusLabel:
+
+            // Focus item text box
+            this.ActiveControl = this.itemTextBox;
         }
 
         /// <summary>
