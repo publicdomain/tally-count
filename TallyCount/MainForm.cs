@@ -123,18 +123,8 @@ namespace TallyCount
         /// <param name="e">Event arguments.</param>
         private void OnNewToolStripMenuItemClick(object sender, EventArgs e)
         {
-            // Pause drawing
-            this.itemListView.BeginUpdate();
-
-            // Iterate list in reverse
-            for (int i = this.itemListView.Items.Count - 1; i >= 0; i--)
-            {
-                // Delete list items
-                this.itemListView.Items[i].Remove();
-            }
-
-            // Resume drawing
-            this.itemListView.EndUpdate();
+            // Remove all items
+            this.ItemListAction("remove");
 
             // Update status label
             this.UpdateStatus();
@@ -144,6 +134,36 @@ namespace TallyCount
 
             // Focus text box
             this.ActiveControl = this.itemTextBox;
+        }
+
+        /// <summary>
+        /// Performs an action on every item.
+        /// </summary>
+        /// <param name="action">The action to perform.</param>
+        private void ItemListAction(string action)
+        {
+            // Pause drawing
+            this.itemListView.BeginUpdate();
+
+            // Iterate list in reverse
+            for (int i = this.itemListView.Items.Count - 1; i >= 0; i--)
+            {
+                // Switch the action
+                switch (action)
+                {
+                    // Handle removal
+                    case "remove":
+
+                        // Delete list item
+                        this.itemListView.Items[i].Remove();
+
+                        // Halt flow
+                        break;
+                }
+            }
+
+            // Resume drawing
+            this.itemListView.EndUpdate();
         }
 
         /// <summary>
